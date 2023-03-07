@@ -4,6 +4,7 @@
 #include "AssetLoader.h"
 #include "Player.h"
 #include "CollisionHandler.h"
+#include "GameObjectManager.h"
 using std::string;
 
 class Game
@@ -15,7 +16,9 @@ public:
 	void initialize();
 private:
 	AssetLoader* assetLoader;
-	CollisionHandler collisionHandler;
+	GameObjectManager* gameObjectManager;
 	Player* player;
+	sf::Texture backgroundTexture;
+	sf::Sprite background;
 };
 

@@ -6,7 +6,7 @@ class GameObject: public sf::Drawable
 {
 public:
 	GameObject();
-	~GameObject() {}
+	virtual ~GameObject() {}
 	void UpdatePosition(float x_offset, float y_offset);
 	sf::Vector2f getPosition();
 	virtual void setPosition(sf::Vector2f position);
@@ -22,8 +22,8 @@ public:
 	int getDamage() { return this->damage; }
 	void setDamage(int damage) { this->damage = damage; }
 	
-	float getVelocity() { return this->velocity; }
-	void setVelocity(float velocity) { this->velocity = velocity; }
+	float getVelocity() { return this->velocity_modifier; }
+	void setVelocity(float velocity) { this->velocity_modifier = velocity; }
 	
 	float getAcceleration() { return this->acceleration; }
 	void setAcceleration(float acceleration) { this->acceleration = acceleration; }
@@ -41,7 +41,7 @@ protected:
 	int health;
 	int damage;
 	sf::Vector2f position;
-	float velocity;
+	float velocity_modifier;
 	float acceleration;
 	sf::Vector2f size;
 	sf::Texture texture;

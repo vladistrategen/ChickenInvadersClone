@@ -5,7 +5,7 @@ Obstacle::Obstacle()
 	this->health = 10;
 	this->damage = 10;
 	this->position = sf::Vector2f(0, 0);
-	this->velocity = 5;
+	this->velocity_modifier = 5;
 	this->acceleration = 1;
 	this->size = sf::Vector2f(0.1,0.1);
 }

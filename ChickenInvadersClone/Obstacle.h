@@ -4,7 +4,7 @@
 #include <string>
 using std::string;
 class Obstacle
-	: public sf::Drawable, public sf::Transformable, public GameObject
+	: public  GameObject
 {
 	public:
 	Obstacle();

@@ -7,7 +7,7 @@ GameObject::GameObject()
 	this->health = 50;
 	this->damage = 10;
 	this->position = sf::Vector2f(0, 0);
-	this->velocity = 1;
+	this->velocity_modifier = 1;
 	this->acceleration = 1;
 	this->size = sf::Vector2f(0.1, 0.1);
 
@@ -16,7 +16,7 @@ GameObject::GameObject()
 
 void GameObject::UpdatePosition(float x_offset, float y_offset)
 {
-	this->sprite.move(x_offset*velocity, y_offset*velocity);
+	this->sprite.move(x_offset*velocity_modifier, y_offset*velocity_modifier);
 }
 
 sf::Vector2f GameObject::getPosition()
@@ -43,6 +43,7 @@ void GameObject::loadTexture()
 		std::cin.get();
 		exit(1);
 	}
+	this->texture.setSmooth(true);
 }
 
 void GameObject::setSprite(sf::Sprite& sprite)
