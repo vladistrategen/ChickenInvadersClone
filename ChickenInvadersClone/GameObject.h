@@ -9,11 +9,11 @@ public:
 	~GameObject() {}
 	void UpdatePosition(float x_offset, float y_offset);
 	sf::Vector2f getPosition();
-	void setPosition(sf::Vector2f position);
+	virtual void setPosition(sf::Vector2f position);
 	void setTexture(sf::Texture& texture);
-	void loadTexture();
+	virtual void loadTexture();
 	void setSprite(sf::Sprite& sprite);
-	void loadSprite();
+	virtual void loadSprite();
 	sf::Sprite* getSpritePointer();
 
 	int getHealth(){ return this->health; }
@@ -28,21 +28,22 @@ public:
 	float getAcceleration() { return this->acceleration; }
 	void setAcceleration(float acceleration) { this->acceleration = acceleration; }
 
-	int getSize() { return this->size; }
-	void setSize(int size) { this->size = size; }
+	sf::Vector2f getSize() { return this->size; }
+	void setSize(sf::Vector2f size) { this->size = size; }
 	
 	string getPathToTexture() { return this->pathToTexture; }
 	void setPathToTexture(string pathToTexture) { this->pathToTexture= pathToTexture; }
 
+	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
 
-private:
+protected:
 	int health;
 	int damage;
 	sf::Vector2f position;
 	float velocity;
 	float acceleration;
-	int size;
+	sf::Vector2f size;
 	sf::Texture texture;
 	sf::Sprite sprite;
 

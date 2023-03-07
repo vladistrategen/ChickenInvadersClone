@@ -2,7 +2,7 @@
 
 AssetLoader::AssetLoader()
 {
-	this->gameObjects = vector<GameObject>();
+	this->gameObjects = vector<GameObject*>();
 }
 
 AssetLoader::~AssetLoader()
@@ -12,20 +12,21 @@ AssetLoader::~AssetLoader()
 
 void AssetLoader::loadSprites()
 {
-	sf::Texture texture;
-	texture.loadFromFile("Assets/Chicken.png");
-	sf::Sprite sprite;
-	sprite.setTexture(texture);
-	GameObject gameObject;
-	gameObject.setSprite(sprite);
-	gameObject.setTexture(texture);
-	this->gameObjects.push_back(gameObject);
+	for (auto gameObject : this->gameObjects)
+	{
+		gameObject->loadSprite();
+	}
 }
 
 void AssetLoader::loadTextures()
 {
 	for (auto gameObject : this->gameObjects)
 	{
-		gameObject.loadTexture();
+		gameObject->loadTexture();
 	}
+}
+
+void AssetLoader::addGameObject(GameObject* gameObject)
+{
+	this->gameObjects.push_back(gameObject);
 }

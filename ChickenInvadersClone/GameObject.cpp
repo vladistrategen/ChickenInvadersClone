@@ -7,22 +7,21 @@ GameObject::GameObject()
 	this->health = 50;
 	this->damage = 10;
 	this->position = sf::Vector2f(0, 0);
-	this->velocity = 5;
+	this->velocity = 1;
 	this->acceleration = 1;
-	this->size = 1;
+	this->size = sf::Vector2f(0.1, 0.1);
 
 }
 
 
 void GameObject::UpdatePosition(float x_offset, float y_offset)
 {
-	this->position.x += x_offset;
-	this->position.y += y_offset;
+	this->sprite.move(x_offset*velocity, y_offset*velocity);
 }
 
 sf::Vector2f GameObject::getPosition()
 {
-	return this->position;
+	return this->sprite.getPosition();
 }
 
 void GameObject::setPosition(sf::Vector2f position)
@@ -55,6 +54,7 @@ void GameObject::loadSprite()
 {
 	this->sprite.setTexture(this->texture);
 	this->sprite.setPosition(this->position);
+	this->sprite.setScale(0.1, 0.1);
 }
 
 sf::Sprite* GameObject::getSpritePointer()
@@ -62,4 +62,7 @@ sf::Sprite* GameObject::getSpritePointer()
 	return &this->sprite;
 }
 
-
+void GameObject::draw(sf::RenderTarget& target, sf::RenderStates states) const
+{
+	target.draw(this->sprite);
+}
