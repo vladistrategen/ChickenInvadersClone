@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <string>
+#include <iostream>
 using std::string;
 class GameObject: public sf::Drawable
 {
@@ -17,7 +18,7 @@ public:
 	sf::Sprite* getSpritePointer();
 
 	int getHealth(){ return this->health; }
-	void setHealth(int health) { this->health = health; }
+	void setHealth(int health) { this->health = health;}
 
 	int getDamage() { return this->damage; }
 	void setDamage(int damage) { this->damage = damage; }

@@ -9,12 +9,15 @@ Game::Game()
 	this->assetLoader->addGameObject(this->player);
     this->gameObjectManager = new GameObjectManager();
     this->gameObjectManager->setPlayer(player);
+    this->uiObjectManager = new UiObjectManager();
+    this->uiObjectManager->setPlyaer(player);
 	
 }
 Game::~Game()
 {
     delete this->assetLoader;
 	delete this->gameObjectManager;
+    delete this->uiObjectManager;
 }
 void Game::run()
 {
@@ -22,6 +25,9 @@ void Game::run()
     window.setFramerateLimit(60);
     while (window.isOpen())
     {
+
+
+
         sf::Event event;
         while (window.pollEvent(event))
         {
@@ -31,6 +37,9 @@ void Game::run()
             }
 
         }
+
+
+
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
             if (player->getPosition().x > 1)
@@ -57,12 +66,32 @@ void Game::run()
                 player->triggerCooldown();
             }
         }
+        int random_number = rand();
+        if (random_number % 73 == 0 ) { // arbitrary number to create obstacles
+			gameObjectManager->createObstacle();
+		}
 
+        if (isGameOver) {
+			window.clear();
+			window.draw(gameOverSprite);
+			window.display();
+			continue;
+		}
 
         window.clear();
         window.draw(background);
         gameObjectManager->moveInanimateObjects();
+        if (this->gameObjectManager->handlePlayerCollisions()){
+			this->uiObjectManager->handleHeartChanges();
+		}
+        this->gameObjectManager->handleFriendlyProjectileCollisions();
         gameObjectManager->drawAll(&window);
+        this->uiObjectManager->drawAllHearts(&window);
+
+        if (player->getHealth() <= 0)
+            this->isGameOver = true;
+
+        
         
         window.display();
     }
@@ -71,10 +100,24 @@ void Game::initialize()
 {
     this->assetLoader->loadTextures();
     this->assetLoader->loadSprites();
-    this->backgroundTexture.loadFromFile("Assets/background.png");
+    if (!this->backgroundTexture.loadFromFile("Assets/background.png"))
+    {
+        // Handle error
+        std::cerr << "[!] Cannot load file: \"" << "Assets/background.png" << "\". Exiting...\n";
+        std::cin.get();
+        exit(1);
+    }
     this->background.setTexture(backgroundTexture);
     this->background.setPosition(0, 0);
     this->background.setScale(0.7, 0.7);
+    this->uiObjectManager->initialize();
+    if (!this->gameOverTexture.loadFromFile("Assets/gameOver.png")) {
+        // Handle error
+        std::cerr << "[!] Cannot load file: \"" << "Assets/gameOver.png" << "\". Exiting...\n";
+        std::cin.get();
+        exit(1);
+    }
+    this->gameOverSprite.setTexture(gameOverTexture);
     
 	srand(time(NULL));
 	

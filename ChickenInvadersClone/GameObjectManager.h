@@ -27,7 +27,7 @@ public:
 
 	void drawAll(sf::RenderWindow* window);
 
-	void handlePlayerCollisions();
+	bool handlePlayerCollisions();
 
 	void handleFriendlyProjectileCollisions();
 
@@ -38,7 +38,7 @@ public:
 
 	void createFriendlyProjectile(float x, float y);
 
-	void createObstacle(float x, float y);
+	void createObstacle();
 
 	void update();
 

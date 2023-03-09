@@ -11,7 +11,9 @@ class Obstacle
 	~Obstacle() {}
 	void randomizeTexture();
 	void randomizePosition();
+	void loadTexture() override;
+	void loadSprite() override;
 private:
-	string obstacleTextures[3] = { "Assets/Obstacle1.png", "Assets/Obstacle2.png", "Assets/Obstacle3.png" };
+	string obstacleTextures[3] = { "Assets/obstacle1.png", "Assets/obstacle2.png", "Assets/obstacle3.png" };
 };
 

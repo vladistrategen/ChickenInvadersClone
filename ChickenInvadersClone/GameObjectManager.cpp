@@ -55,14 +55,16 @@ void GameObjectManager::drawAll(sf::RenderWindow* window)
 	window->draw(*player);
 }
 
-void GameObjectManager::handlePlayerCollisions()
+bool GameObjectManager::handlePlayerCollisions()
 {
 	for (auto obstacle : obstacles) {
 		if (player->getSpritePointer()->getGlobalBounds().intersects(obstacle->getSpritePointer()->getGlobalBounds())) {
 			player->setHealth(player->getHealth() - obstacle->getDamage());
 			removeObstacle(obstacle);
+			return true;
 		}
 	}
+	return false;
 }
 
 void GameObjectManager::handleFriendlyProjectileCollisions()
@@ -90,8 +92,12 @@ void GameObjectManager::createFriendlyProjectile(float x, float y)
 	addFriendlyProjectile(newobj);
 }
 
-void GameObjectManager::createObstacle(float x, float y)
+void GameObjectManager::createObstacle()
 {
+	GameObject* newobj = factory->createGameObject("Obstacle");
+	newobj->loadTexture();
+	newobj->loadSprite();
+	addObstacle(newobj);
 }
 
 void GameObjectManager::update()
@@ -101,7 +107,7 @@ void GameObjectManager::update()
 void GameObjectManager::moveInanimateObjects()
 {
 	for (auto obstacle : obstacles) {
-		obstacle->UpdatePosition(-5, 0);
+		obstacle->UpdatePosition(-2.5, 0);
 		if(obstacle->getSpritePointer()->getPosition().x<0)
 			removeObstacle(obstacle);
 	}
