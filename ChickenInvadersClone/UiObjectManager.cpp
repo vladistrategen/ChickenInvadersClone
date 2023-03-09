@@ -8,8 +8,10 @@ UiObjectManager::UiObjectManager()
 
 UiObjectManager::~UiObjectManager()
 {
-	for (auto heart : hearts) {
-		delete heart;
+	while (!hearts.empty())
+	{
+		delete hearts.back();
+		hearts.pop_back();
 	}
 }
 

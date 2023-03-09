@@ -10,13 +10,17 @@ GameObjectManager::GameObjectManager()
 
 GameObjectManager::~GameObjectManager()
 {
-	delete player;
-	for (auto obstacle : obstacles) {
-		delete obstacle;
+	while (!obstacles.empty()) {
+		delete obstacles.back();
+		obstacles.pop_back();
 	}
-	for (auto projectile : friendlyProjectiles) {
-		delete projectile;
+	
+	while (!friendlyProjectiles.empty()){
+		delete friendlyProjectiles.back();
+		friendlyProjectiles.pop_back();
 	}
+
+	delete this->factory;
 }
 
 void GameObjectManager::removeObstacle(GameObject* obs)
@@ -24,10 +28,11 @@ void GameObjectManager::removeObstacle(GameObject* obs)
 	for (int i = 0; i < obstacles.size(); i++) {
 		if (obstacles[i] == obs) {
 			obstacles.erase(obstacles.begin() + i);
+			delete obs;
 			break;
 		}
 	}
-	delete obs;
+	
 }
 
 void GameObjectManager::removeFriendlyProjectile(GameObject* proj)
@@ -36,10 +41,11 @@ void GameObjectManager::removeFriendlyProjectile(GameObject* proj)
 	for (int i = 0; i < friendlyProjectiles.size(); i++) {
 		if (friendlyProjectiles[i] == proj) {
 			friendlyProjectiles.erase(friendlyProjectiles.begin() + i);
+			delete proj;
 			break;
 		}
 	}
-	delete proj;
+	
 }
 
 void GameObjectManager::drawAll(sf::RenderWindow* window)

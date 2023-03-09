@@ -7,7 +7,10 @@ AssetLoader::AssetLoader()
 
 AssetLoader::~AssetLoader()
 {
-
+	while (!gameObjects.empty()) {
+		delete gameObjects.back();
+		gameObjects.pop_back();
+	}
 }
 
 void AssetLoader::loadSprites()

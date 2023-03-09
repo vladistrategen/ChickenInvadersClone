@@ -17,7 +17,9 @@ Game::~Game()
 {
     delete this->assetLoader;
 	delete this->gameObjectManager;
+    
     delete this->uiObjectManager;
+    
 }
 void Game::run()
 {
@@ -67,7 +69,7 @@ void Game::run()
             }
         }
         int random_number = rand();
-        if (random_number % 73 == 0 ) { // arbitrary number to create obstacles
+        if (random_number % 67 == 0 ) { // arbitrary number to create obstacles
 			gameObjectManager->createObstacle();
 		}
 

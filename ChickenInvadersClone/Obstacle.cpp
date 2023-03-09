@@ -18,8 +18,8 @@ void Obstacle::randomizeTexture()
 
 void Obstacle::randomizePosition()
 {
-	int random = rand() % 800;
-	this->position = sf::Vector2f(1280,random );
+	int random = rand() % 600 + 50; // range of screen coordinates 50-750
+	this->position = sf::Vector2f(1300,random );
 }
 
 void Obstacle::loadTexture()
